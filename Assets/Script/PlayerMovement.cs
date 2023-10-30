@@ -49,6 +49,11 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    private void Move2()
+    {
+
+    }
+
     private void OnApplicationFocus(bool focus)
     {
         //if (focus)

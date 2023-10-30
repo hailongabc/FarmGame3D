@@ -5,32 +5,30 @@ using DG.Tweening;
 
 public class CameraMovement : MonoBehaviour
 {
-    public Transform cameraTarget;
-    public float sSpeed = 10.0f;
-    public Vector3 dist;
-    public Transform lookTarget;
+    public float offsetZ = 5f;
+    public float smoothing = 2f;
+
+    //player transform component
+    Transform playerPos;
+   
 
     private void Awake()
     {
-        //_camera = this.transform;
-
-        //_offset = _camera.position - _player.position;
+        playerPos = FindObjectOfType<PlayerMovement2>().transform;
     }
 
-    private void LateUpdate()
+    private void FixedUpdate()
     {
         Follow();
     }
 
     private void Follow()
     {
-        //_camera.DOMoveX(_player.position.x + _offset.x, _speed * Time.deltaTime);
-        //_camera.DOMoveZ(_player.position.z + _offset.z, _speed * Time.deltaTime);
+        //Position the camera should be in
+        Vector3 targetPos = new Vector3(playerPos.position.x, transform.position.y, playerPos.position.z - offsetZ);
 
-        Vector3 dPos = cameraTarget.position + dist;
-        Vector3 sPos = Vector3.Lerp(transform.position, dPos, sSpeed * Time.deltaTime);
-        transform.position = sPos;
-        transform.LookAt(lookTarget.position);
+        //Set the position accordingly
+        transform.position = Vector3.Lerp(transform.position, targetPos, smoothing * Time.deltaTime);
     }
 
 
