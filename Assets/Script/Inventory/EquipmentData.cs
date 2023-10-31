@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Items/Equipment")]
-public class NewBehaviourScript : ItemData
+public class EquipmentData : ItemData
 {
     public enum ToolType
     {

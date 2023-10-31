@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb6327cc4109e824888755ef769d99da, type: 3}
   m_Name: Axe
   m_EditorClassIdentifier: 
-  description: 
+  description: For clearing wood obstacles
   thumbnail: {fileID: -2129762227, guid: 054c330d469e28a43a68c2c1f4bb556b, type: 3}
   gameModel: {fileID: 0}
   toolType: 2
