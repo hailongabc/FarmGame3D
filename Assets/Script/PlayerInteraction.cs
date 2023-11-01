@@ -9,6 +9,9 @@ public class PlayerInteraction : MonoBehaviour
     //The land the player is currently selecting
     Land selectedLand;
 
+    //The interactable object the player is currently selecting
+    InteractableObject selectedInteractable = null;
+
     void Start()
     {
         playerMovement2 = transform.parent.GetComponent<PlayerMovement2>();
@@ -35,6 +38,20 @@ public class PlayerInteraction : MonoBehaviour
             Land land = other.GetComponent<Land>();
             SelectLand(land);
             return;
+        }
+
+        //Check if the player is going to interact with an Item
+        if(other.tag == "Item")
+        {
+            //Set the interactable to the currently selected interactable
+            InteractableObject interactable = other.GetComponent<InteractableObject>();
+            return;
+        }
+
+        //Deselect the interactable if the player is not standing on anything at the moment
+        if(selectedInteractable != null)
+        {
+            selectedInteractable = null;
         }
 
         //Unselect the land if the player is not standing on any land at the moment
@@ -70,5 +87,26 @@ public class PlayerInteraction : MonoBehaviour
         }
 
         Debug.Log("Not on any land");
+    }
+
+    //Triggered when the player presses the item interact button
+    public void ItemInteract()
+    {
+        //If the player is holding something, keep it in his inventory
+        if(InventoryManager.Instance.equippedItem != null)
+        {
+            InventoryManager.Instance.HandToInventory(InventorySlots.InventoryType.Item);
+            return;
+        }
+
+        //If the player isn't holding anything, pick up an item
+        
+        //Check if there is an interactable selected
+        if (selectedInteractable != null)
+        {
+            Debug.Log("dddd");
+            //Pick it up
+            selectedInteractable.Pickup();
+        }
     }
 }

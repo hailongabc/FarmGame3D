@@ -4,13 +4,17 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIManager : MonoBehaviour
+public class UIManager : MonoBehaviour, ITimeTracker
 {
     public static UIManager Instance { get; private set; }
 
     [Header("Status Bar")]
     //Tool equip slot on the status bar
     public Image toolEquipSlot;
+
+    //TimeUI
+    public TextMeshProUGUI timeText;
+    public TextMeshProUGUI dateText;
 
     [Header("Inventory System")]
     //The inventory panel
@@ -49,6 +53,9 @@ public class UIManager : MonoBehaviour
     {
         RenderInventory();
         AssignSlotIndexes();
+
+        //Add UIManager to the list of objects TimeManager will notify when the time updates
+        TimeManager.Instance.RegisterTracker(this);
     }
 
     //Iterate through the slot UI elements and assign it its reference slot index
@@ -127,5 +134,35 @@ public class UIManager : MonoBehaviour
         }
         itemNameText.text = data.name;
         itemDescriptionText.text = data.description;
+    }
+
+    //Callback to handle the UI for time
+    public void ClockUpdate(GameTime timeStamp)
+    {
+        //Handle the time
+
+        //Get the hours and minutes
+        int hours = timeStamp.hour;
+        int minutes = timeStamp.minute;
+
+        //Am or PM
+        string prefix = "AM ";
+
+        //Convert hours to 12 hour clock
+        if(hours > 12)
+        {
+            //Time becomes PM
+            prefix = "PM ";
+            hours = hours - 12;
+        }
+        timeText.text = prefix + hours + ":" + minutes.ToString("00");
+
+        //Handle the Date
+        int day = timeStamp.day;
+        string season = timeStamp.season.ToString();
+        string dayOfTheWeek = timeStamp.GetDayOfTheWeek().ToString();
+
+        //Format it for the date text display
+        dateText.text = season + " " + day + " (" + dayOfTheWeek + ")";
     }
 }

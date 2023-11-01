@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameTime 
+[System.Serializable]
+public class GameTime
 {
     public int year;
     public enum Season
@@ -40,12 +41,24 @@ public class GameTime
         this.minute = minute;
     }
 
+
+    //Creating a new instance of a GameTimestamp from another pre-existing one
+    public GameTime(GameTime timestamp)
+    {
+        this.year = timestamp.year;
+        this.season = timestamp.season;
+        this.day = timestamp.day;
+        this.hour = timestamp.hour;
+        this.minute = timestamp.minute;
+    }
+
+    //Increments the time by 1 minute
     public void UpdateClock()
     {
         minute++;
 
         //60 minutes in 1 hour
-        if(minute >= 60)
+        if (minute >= 60)
         {
             //reset minutes
             minute = 0;
@@ -53,20 +66,21 @@ public class GameTime
         }
 
         //24 hours in 1 day
-        if(hour >= 24)
+        if (hour >= 24)
         {
             //Reset hours
             hour = 0;
+            day++;
         }
 
         //30 days in a season
-        if(day > 30)
+        if (day > 30)
         {
             //Reset days
             day = 1;
 
             season++;
-            if(season == Season.Winter)
+            if (season == Season.Winter)
             {
                 season = Season.Spring;
                 //Start of a new year
@@ -90,7 +104,7 @@ public class GameTime
 
         //Cast into Day of the Week
         return (DayOfTheWeek)dayIndex;
-    } 
+    }
 
     //Convert hours to minutes
     public static int HourToMinutes(int hour)
@@ -117,5 +131,17 @@ public class GameTime
     public static int YearsToDay(int years)
     {
         return years * 4 * 30;
+    }
+
+
+  //Caculate the difference between 2 timestamps
+    public static int CompareTimestamps(GameTime timestamp1, GameTime timestamp2)
+    {
+        //Convert timestamps to hours
+        int timestamp1Hours = DaysToHours(YearsToDay(timestamp1.year)) + DaysToHours(SeasonsToDays(timestamp1.season)) + DaysToHours(timestamp1.day) + timestamp1.hour;
+        int timestamp2Hours = DaysToHours(YearsToDay(timestamp2.year)) + DaysToHours(SeasonsToDays(timestamp2.season)) + DaysToHours(timestamp2.day) + timestamp2.hour;
+        int difference = timestamp2Hours - timestamp1Hours;
+        return Mathf.Abs(difference);
+
     }
 }
