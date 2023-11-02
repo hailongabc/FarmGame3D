@@ -44,7 +44,7 @@ public class PlayerInteraction : MonoBehaviour
         if(other.tag == "Item")
         {
             //Set the interactable to the currently selected interactable
-            InteractableObject interactable = other.GetComponent<InteractableObject>();
+            selectedInteractable = other.GetComponent<InteractableObject>();
             return;
         }
 
@@ -79,6 +79,12 @@ public class PlayerInteraction : MonoBehaviour
     //Triggered when the player presses the tool button
     public void Interact()
     {
+        //The player shouldn't be able to use his tool when he has his hands full with an item
+        if(InventoryManager.Instance.equippedItem != null)
+        {
+            return;
+        }
+
         //Check if the player is selecting any land
         if(selectedLand != null)
         {
@@ -100,11 +106,10 @@ public class PlayerInteraction : MonoBehaviour
         }
 
         //If the player isn't holding anything, pick up an item
-        
+        Debug.Log(selectedInteractable);
         //Check if there is an interactable selected
         if (selectedInteractable != null)
         {
-            Debug.Log("dddd");
             //Pick it up
             selectedInteractable.Pickup();
         }

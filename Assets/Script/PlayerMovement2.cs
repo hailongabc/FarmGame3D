@@ -54,6 +54,7 @@ public class PlayerMovement2 : MonoBehaviour
         //Item interaction
         if (Input.GetButtonDown("Fire2"))
         {
+            Debug.Log("fire2");
             playerInteraction.ItemInteract();
         }
     }

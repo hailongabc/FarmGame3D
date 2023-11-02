@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8446973881879383255}
   m_Layer: 0
   m_Name: Cabbage_01_LOD1
-  m_TagString: Item
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -95,7 +95,8 @@ GameObject:
   - component: {fileID: 8712997190725166366}
   - component: {fileID: 8373419051993004191}
   - component: {fileID: 5723314326139808742}
-  m_Layer: 0
+  - component: {fileID: 8449053683908701908}
+  m_Layer: 7
   m_Name: Cabbage_01_LOD0
   m_TagString: Item
   m_Icon: {fileID: 0}
@@ -189,6 +190,19 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -7728708571941689490, guid: 0f50786d35eebcf44805f9d5fb326c11, type: 3}
+--- !u!114 &8449053683908701908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8289148887857362819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 288870d741dfcd846a5da85b252d5c98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item: {fileID: 11400000, guid: 50af24326c0bd374a92c4bc408a233cb, type: 2}
 --- !u!1 &8554979865545778643
 GameObject:
   m_ObjectHideFlags: 0
@@ -202,7 +216,7 @@ GameObject:
   - component: {fileID: 6955797794061600580}
   m_Layer: 0
   m_Name: Cabbage
-  m_TagString: Item
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
